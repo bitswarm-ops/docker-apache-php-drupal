@@ -17,7 +17,10 @@ echo -n no > /etc/container_environment/INITRD
 sed -i 's/^#\s*\(deb.*universe\)$/\1/g' /etc/apt/sources.list
 sed -i 's/^#\s*\(deb.*multiverse\)$/\1/g' /etc/apt/sources.list
 
-apt-get update
+apt-get update -qy
+
+git config --global user.email "support@bitswarm.io"
+git config --global user.name "bitswarm-ops"
 
 if [ ! -e /opt ]; then
   mkdir /opt

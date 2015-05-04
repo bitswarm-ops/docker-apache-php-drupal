@@ -12,18 +12,20 @@ fi
 
 rsync -av --delete --exclude=".git" --exclude="sites" /opt/drupal/ /app
 
-if [ ! -e /app/composer.lock ]; then
-  cd /app
-  /usr/local/bin/composer install \
-    --no-interaction \
-    --no-progress \
-    --ignore-platform-reqs
-else
-  cd /app
-  /usr/local/bin/composer update \
-    --no-interaction \
-    --no-progress \
-    --ignore-platform-reqs
+if [ -e /app/composer.json ]; then
+ if [ ! -e /app/composer.lock ]; then
+    cd /app
+    /usr/local/bin/composer install \
+      --no-interaction \
+      --no-progress \
+      --ignore-platform-reqs
+  else
+    cd /app
+    /usr/local/bin/composer update \
+      --no-interaction \
+      --no-progress \
+      --ignore-platform-reqs
+  fi
 fi
 
 chown -R www-data:www-data /app /opt/drupal
