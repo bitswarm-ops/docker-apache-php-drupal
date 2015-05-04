@@ -1,0 +1,5 @@
+export LC_ALL=C
+export DEBIAN_FRONTEND=noninteractive
+minimal_apt_get_install='apt-get install -y --no-install-recommends'
+forced_apt_get_install='apt-get install -y --force-yes --no-install-recommends'
+minimal_apt_get_build_dep='apt-get build-dep -yq --force-yes'
