@@ -11,7 +11,7 @@ else
 fi
 
 cd /opt/drupal
-rsync -avz --delete --exclude=".git" --exclude="sites" . /app
+rsync -avqz --delete --stats --exclude=".git" --exclude="sites" . /app
 
 # First time run will exclude sites (above), so we..
 if [ ! -e /app/sites ]; then
