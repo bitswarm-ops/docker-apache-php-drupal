@@ -13,6 +13,12 @@ fi
 cd /opt/drupal
 rsync -avz --delete --exclude=".git" --exclude="sites" . /app
 
+# First time run will exclude sites (above), so we..
+if [ ! -e /app/sites ]; then
+  cd /opt/drupal/sites
+  rsync -avz . /app/sites
+fi
+
 cd /app
 
 if [ -e /app/composer.json ]; then
