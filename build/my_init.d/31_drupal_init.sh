@@ -10,17 +10,18 @@ else
   git checkout -B master "${DRUPAL_CORE_VERSION}"
 fi
 
-rsync -av --delete --exclude=".git" --exclude="sites" /opt/drupal/ /app
+cd /opt/drupal
+rsync -avz --delete --exclude=".git" --exclude="sites" . /app
+
+cd /app
 
 if [ -e /app/composer.json ]; then
  if [ ! -e /app/composer.lock ]; then
-    cd /app
     /usr/local/bin/composer install \
       --no-interaction \
       --no-progress \
       --ignore-platform-reqs
   else
-    cd /app
     /usr/local/bin/composer update \
       --no-interaction \
       --no-progress \
