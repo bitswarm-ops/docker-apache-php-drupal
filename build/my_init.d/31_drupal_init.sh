@@ -35,4 +35,18 @@ if [ -e /app/composer.json ]; then
   fi
 fi
 
+if [ -e /etc/php5/fpm/pool.d/mysql.conf ]; then
+  rm -f /etc/php5/fpm/pool.d/mysql.conf
+fi
+
+echo "env['MYSQL_DATABASE]='${MYSQL_DATABASE}'" > /etc/php5/fpm/pool.d/mysql.conf
+echo "env['MYSQL_USER']='${MYSQL_USER}'" >> /etc/php5/fpm/pool.d/mysql.conf
+echo "env['MYSQL_PASSWORD']='${MYSQL_PASSWORD}'" >> /etc/php5/fpm/pool.d/mysql.conf
+echo "env['MYSQL_PREFIX']='${MYSQL_PREFIX}'" >> /etc/php5/fpm/pool.d/mysql.conf
+echo "env['MYSQL_HOST']='${MYSQL_HOST}'" >> /etc/php5/fpm/pool.d/mysql.conf
+echo "env['MYSQL_PORT']='${MYSQL_PORT}'" >> /etc/php5/fpm/pool.d/mysql.conf
+
+echo "### Initialized php_fpm mysql.conf:"
+cat /etc/php5/fpm/pool.d/mysql.conf
+
 chown -R www-data:www-data /app /opt/drupal
