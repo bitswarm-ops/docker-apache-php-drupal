@@ -35,18 +35,12 @@ if [ -e /app/composer.json ]; then
   fi
 fi
 
-if [ -e /etc/php5/fpm/pool.d/mysql.conf ]; then
-  rm -f /etc/php5/fpm/pool.d/mysql.conf
-fi
-
-echo "env['MYSQL_DATABASE]='${MYSQL_DATABASE}'" > /etc/php5/fpm/pool.d/mysql.conf
-echo "env['MYSQL_USER']='${MYSQL_USER}'" >> /etc/php5/fpm/pool.d/mysql.conf
-echo "env['MYSQL_PASSWORD']='${MYSQL_PASSWORD}'" >> /etc/php5/fpm/pool.d/mysql.conf
-echo "env['MYSQL_PREFIX']='${MYSQL_PREFIX}'" >> /etc/php5/fpm/pool.d/mysql.conf
-echo "env['MYSQL_HOST']='${MYSQL_HOST}'" >> /etc/php5/fpm/pool.d/mysql.conf
-echo "env['MYSQL_PORT']='${MYSQL_PORT}'" >> /etc/php5/fpm/pool.d/mysql.conf
-
-echo "### Initialized php_fpm mysql.conf:"
-cat /etc/php5/fpm/pool.d/mysql.conf
-
 chown -R www-data:www-data /app /opt/drupal
+
+mkdir -p /etc/service/php5-fpm/env.d
+echo "${MYSQL_HOST}" > /etc/service/php5-fpm/env.d/MYSQL_HOST
+echo "${MYSQL_PORT}" > /etc/service/php5-fpm/env.d/MYSQL_PORT
+echo "${MYSQL_DATABASE}" > /etc/service/php5-fpm/env.d/MYSQL_DATABASE
+echo "${MYSQL_PREFIX}" > /etc/service/php5-fpm/env.d/MYSQL_PREFIX
+echo "${MYSQL_USER}" > /etc/service/php5-fpm/env.d/MYSQL_USER
+echo "${MYSQL_PASSWORD}" > /etc/service/php5-fpm/env.d/MYSQL_PASSWORD
